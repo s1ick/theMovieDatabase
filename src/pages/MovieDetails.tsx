@@ -21,7 +21,10 @@ const MovieDetails = () => {
   return (
     <div className="movie-details">
       <h1>{movie.Title} ({movie.Year})</h1>
-      <img src={movie.Poster} alt={movie.Title} />
+      <img src={movie.Poster}
+        loading="lazy"
+  decoding="async"
+      alt={movie.Title} />
       <p><strong>Режиссёр:</strong> {movie.Director}</p>
       <p><strong>Актёры:</strong> {movie.Actors}</p>
       <p><strong>Рейтинг:</strong> {movie.imdbRating}</p>

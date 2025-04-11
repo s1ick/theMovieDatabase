@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import { doc, getDoc, setDoc, updateDoc } from 'firebase/firestore';
 import { db, auth } from '../firebase';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { motion } from 'framer-motion';
 
 export const useRating = (movieId: string) => {
   const [user] = useAuthState(auth);

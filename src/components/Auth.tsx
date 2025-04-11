@@ -3,7 +3,6 @@ import { auth } from '../firebase';
 import { 
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
-  signOut,
   GoogleAuthProvider,
   signInWithPopup
 } from 'firebase/auth';

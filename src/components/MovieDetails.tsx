@@ -3,7 +3,7 @@ import axios from 'axios';
 import { Movie } from '../types/movie';
 import Rating from './Rating';
 import { motion } from 'framer-motion';
-import { doc, getDoc, setDoc } from 'firebase/firestore';
+import { doc, getDoc } from 'firebase/firestore';
 import { db, auth } from '../firebase';
 import { useAuthState } from 'react-firebase-hooks/auth';
 

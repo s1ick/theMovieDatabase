@@ -13,6 +13,8 @@ const MovieCard = ({ movie }: MovieCardProps) => {
         <img 
           src={movie.Poster !== 'N/A' ? movie.Poster : 'https://via.placeholder.com/300x450?text=No+Poster'} 
           alt={movie.Title}
+            loading="lazy"
+  decoding="async"
           className="w-full h-64 object-cover"
         />
         <div className="p-3">

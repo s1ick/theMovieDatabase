@@ -1,7 +1,7 @@
 import { signOut } from 'firebase/auth';
 import { auth } from '../firebase';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 const UserProfile = () => {
   const [user] = useAuthState(auth);
@@ -26,6 +26,8 @@ const UserProfile = () => {
       <img 
         src={user.photoURL || `https://ui-avatars.com/api/?name=${user.email}&background=random`} 
         alt="User" 
+          loading="lazy"
+  decoding="async"
         className="h-8 w-8 rounded-full"
       />
       <span className="text-sm font-medium truncate max-w-xs">
