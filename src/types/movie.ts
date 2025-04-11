@@ -10,4 +10,8 @@ export interface Movie {
   Genre?: string;
   Runtime?: string;
   imdbRating?: string;
-  }
+  // Добавляем поля для рейтинга
+  userRating?: number;
+  averageRating?: number;
+  ratingsCount?: number;
+}
