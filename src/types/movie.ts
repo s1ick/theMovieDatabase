@@ -4,14 +4,28 @@ export interface Movie {
   Year: string;
   Poster: string;
   Type?: string;
-  Plot?: string;
-  Director?: string;
-  Actors?: string;
-  Genre?: string;
+  Rated?: string;
+  Released?: string;
   Runtime?: string;
+  Genre?: string;
+  Director?: string;
+  Writer?: string;
+  Actors?: string;
+  Plot?: string;
+  Language?: string;
+  Country?: string;
+  Awards?: string;
+  Ratings?: Array<{ Source: string; Value: string }>;
+  Metascore?: string;
   imdbRating?: string;
-  // Добавляем поля для рейтинга
+  imdbVotes?: string;
+  DVD?: string;
+  BoxOffice?: string;
+  Production?: string;
+  Website?: string;
+  Response?: string;
   userRating?: number;
   averageRating?: number;
   ratingsCount?: number;
+  addedAt?: string;
 }

@@ -63,6 +63,36 @@ const MovieDetails = ({ imdbID, onClose, isFavorite, onToggleFavorite }: MovieDe
     fetchMovie();
   }, [imdbID, user]);
 
+  const exportToCSV = () => {
+    if (!movie) return;
+
+    const headers = ['ID', 'Title', 'Year', 'Genre', 'Director', 'Actors', 'Plot', 'IMDb Rating'];
+    const row = [
+      movie.imdbID,
+      `"${movie.Title?.replace(/"/g, '""')}"`,
+      movie.Year,
+      movie.Genre || 'N/A',
+      movie.Director || 'N/A',
+      movie.Actors || 'N/A',
+      movie.Plot ? `"${movie.Plot.replace(/"/g, '""')}"` : 'N/A',
+      movie.imdbRating || 'N/A'
+    ];
+
+    const csvContent = [
+      headers.join(','),
+      row.join(',')
+    ].join('\n');
+
+    const blob = new Blob(["\uFEFF" + csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.setAttribute('href', url);
+    link.setAttribute('download', `${movie.Title.replace(/[^a-z0-9]/gi, '_')}_details.csv`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   if (isLoading) {
     return (
       <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
@@ -132,18 +162,29 @@ const MovieDetails = ({ imdbID, onClose, isFavorite, onToggleFavorite }: MovieDe
           </motion.div>
           
           <div className="space-y-4">
-            <div className="flex items-center">
+            <div className="flex items-center space-x-4">
               <motion.button
                 onClick={onToggleFavorite}
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
-                className="mr-2 p-2 text-red-500 hover:text-red-700 transition-colors"
+                className="p-2 text-red-500 hover:text-red-700 transition-colors"
               >
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill={isFavorite ? "currentColor" : "none"} viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
                 </svg>
               </motion.button>
-              <span>{isFavorite ? 'In Favorites' : 'Add to Favorites'}</span>
+              
+              <motion.button
+                onClick={exportToCSV}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="flex items-center px-3 py-1 bg-blue-500 text-white rounded text-sm hover:bg-blue-600 transition-colors"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1" viewBox="0 0 20 20" fill="currentColor">
+                  <path fillRule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clipRule="evenodd" />
+                </svg>
+                Export
+              </motion.button>
             </div>
 
             <div className="space-y-3">
@@ -159,7 +200,7 @@ const MovieDetails = ({ imdbID, onClose, isFavorite, onToggleFavorite }: MovieDe
               <h3 className="font-semibold mb-2">Your Rating:</h3>
               <Rating movieId={imdbID} />
             </div>
-                      </div>
+          </div>
         </div>
       </motion.div>
     </div>
