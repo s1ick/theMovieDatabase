@@ -54,6 +54,7 @@ npm install
 echo "REACT_APP_FIREBASE_CONFIG='your-config'" > .env
 npm start
 ```
+
 ## 🤝 Как помочь проекту
 1. Сообщайте о багах в Issues
 2. Предлагайте улучшения через Pull Requests
